@@ -30,8 +30,8 @@ class CategoriaController extends Controller
     public function create(): View
     {
         $categoria = new Categoria();
-
-        return view('categoria.create', compact('categoria'));
+        $modo = 'crear';
+        return view('categoria.create', compact('categoria','modo'));
     }
 
 
@@ -71,13 +71,23 @@ class CategoriaController extends Controller
     public function edit($id): View
     {
         $categoria = Categoria::find($id);
-
-        return view('categoria.edit', compact('categoria'));
+        $modo = 'editar';
+        return view('categoria.edit', compact('categoria' ,'modo'));
     }
 
     public function update(CategoriaRequest $request, Categoria $categoria): RedirectResponse
     {
-        $categoria->update($request->validated());
+        $data = $request->validated();
+
+        // verificar si se cargo una nueva imagen
+        if ($request->hasFile('foto')) {
+
+            // Procesar la nueva foto y actualizar el campo correspondiente
+            $path = $request->file('foto')->store('fotosCategoria', 'public');;
+            $data['foto'] = basename($path);
+        }
+
+        $categoria->update($data);
 
         return Redirect::route('categorias.index')
             ->with('success', 'Categoria actualizada con exito');

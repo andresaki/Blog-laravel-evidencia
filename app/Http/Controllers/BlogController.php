@@ -36,7 +36,8 @@ class BlogController extends Controller
     {
         $blog = new Blog();
         $categorias= Categoria::pluck('nombre', 'id');
-        return view('blog.create', compact('blog','categorias'));
+        $modo = 'crear';
+        return view('blog.create', compact('blog','categorias','modo'));
     }
 
 
@@ -71,7 +72,6 @@ class BlogController extends Controller
     public function show($id): View
     {
         $blog = Blog::find($id);
-
         return view('blog.show', compact('blog'));
     }
 
@@ -80,13 +80,25 @@ class BlogController extends Controller
     {
         $blog = Blog::find($id);
         $categorias= Categoria::pluck('nombre', 'id');
-        return view('blog.edit', compact('blog','categorias'));
+        $modo = 'editar';
+        return view('blog.edit', compact('blog','categorias','modo'));
     }
 
 
     public function update(BlogRequest $request, Blog $blog): RedirectResponse
     {
-        $blog->update($request->validated());
+
+        $data = $request->validated();
+
+        // verificar si se cargo una nueva imagen
+        if ($request->hasFile('foto')) {
+
+            // Procesar la nueva foto y actualizar el campo correspondiente
+            $path = $request->file('foto')->store('fotos', 'public');;
+            $data['foto'] = basename($path);
+        }
+
+        $blog->update($data);
 
         return Redirect::route('blogs.index')
             ->with('success', 'Blog Actualizada con exito');

@@ -59,7 +59,7 @@
                                                     <a class="btn btn-sm btn-secondary     " href="{{ route('blogs.edit', $blog->id) }}">{{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-warning   btn-sm" onclick="event.preventDefault(); confirm('Seguro que quieres eliminarlo?') ? this.closest('form').submit() : false;">{{ __('Eliminar') }}</button>
+                                                    <button type="submit" class="btn btn-warning   btn-sm" onclick="event.preventDefault(); confirm('Seguro que quieres eliminar el post: {{ $blog->titulo }}?') ? this.closest('form').submit() : false;">{{ __('Eliminar') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

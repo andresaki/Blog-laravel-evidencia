@@ -24,7 +24,7 @@ class CategoriaRequest extends FormRequest
         return [
 			'nombre' => 'required|string',
 			'descripcion' => 'required|string',
-			'foto' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
+			'foto' => 'file|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

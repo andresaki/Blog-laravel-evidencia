@@ -24,7 +24,7 @@ class BlogRequest extends FormRequest
         return [
 			'categoria_id' => 'required',
 			'titulo' => 'required|string',
-			'foto' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
+			'foto' => 'file|mimes:jpeg,png,jpg,gif|max:2048',
 			'descripcion' => 'required|string',
         ];
     }

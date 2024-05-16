@@ -18,7 +18,7 @@
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('blog.form')
+                            @include('blog.form' ,['modo' => $modo])
 
                         </form>
                     </div>

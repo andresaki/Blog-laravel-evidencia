@@ -11,7 +11,13 @@
             <input type="text" name="descripcion" class="form-control @error('descripcion') is-invalid @enderror" value="{{ old('descripcion', $categoria?->descripcion) }}" id="descripcion" placeholder="Descripcion">
             {!! $errors->first('descripcion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        
+
+        @if($modo === 'editar')
+            <div class="form-group mb-4 mb20 card  px-2 py-3  bg-primary-subtle  ">
+                <label for="foto" class="form-label d-block fw-semibold  ">{{ __('Foto actual') }}</label>
+                <img src="/categoria-imagenes/{{ $categoria->foto }}" style="width: 30%" alt="">
+            </div>
+        @endif
 
         <div class="form-group mb-4 mb20">
             <label for="foto" class="form-label">{{ __('Foto') }}</label>
